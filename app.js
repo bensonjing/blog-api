@@ -6,8 +6,7 @@ import "dotenv/config";
 import cors from "cors";
 import mongoose from "mongoose";
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+import apiRouter from "./routes/api";
 
 // setup mongoDB connection
 const mongoDB = process.env.MONGODB_URI;
@@ -23,7 +22,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/api", apiRouter);
 
 module.exports = app;
