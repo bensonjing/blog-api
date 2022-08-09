@@ -5,7 +5,7 @@ import postRouter from "./post";
 import * as userController from "../controllers/userController";
 
 router.get("/", (req, res) => {
-  res.redirect("/posts");
+  res.redirect("/api/posts");
 });
 
 router.post("/signup", userController.signup);
