@@ -4,11 +4,15 @@ const router = express.Router();
 import postRouter from "./post";
 import * as userController from "../controllers/userController";
 
+router.get("/", (req, res) => {
+  res.redirect("/posts");
+});
+
 router.post("/signup", userController.signup);
 
 router.post("/login", userController.login);
 
-router.get("/logout", (req, res) => res.send("NOT IMPLEMENTED: logout"));
+router.get("/logout", userController.logout);
 
 router.use("/posts", postRouter);
 

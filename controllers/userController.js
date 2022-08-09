@@ -74,10 +74,17 @@ export function login(req, res, next) {
         res.send(err);
       }
 
-      console.log(user);
-
       const token = jwt.sign({ user }, "secrete_key");
       res.json({ token });
     });
   })(req, res, next);
+}
+
+export function logout(req, res, next) {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
 }

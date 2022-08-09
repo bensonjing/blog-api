@@ -5,8 +5,10 @@ var logger = require("morgan");
 import "dotenv/config";
 import cors from "cors";
 import mongoose from "mongoose";
+import passport from "passport";
 
 import "./passport";
+import indexRouter from "./routes/index";
 import apiRouter from "./routes/api";
 
 // setup mongoDB connection
@@ -22,7 +24,9 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(passport.initialize());
 
+app.use("/", indexRouter);
 app.use("/api", apiRouter);
 
 module.exports = app;
