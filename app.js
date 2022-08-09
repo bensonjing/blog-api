@@ -12,7 +12,9 @@ import indexRouter from "./routes/index";
 import apiRouter from "./routes/api";
 
 // setup mongoDB connection
-const mongoDB = process.env.MONGODB_URI;
+const mongoDB =
+  process.env.MONGODB_URI ||
+  "mongodb+srv://BensonJing:Benson0523@cluster0.t7du9kk.mongodb.net/blog?retryWrites=true&w=majority";
 mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));

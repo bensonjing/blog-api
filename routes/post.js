@@ -15,9 +15,17 @@ router.post(
   postController.create_post
 );
 
-router.put("/:postId", postController.update_post);
+router.put(
+  "/:postId",
+  passport.authenticate("jwt", { session: false }),
+  postController.update_post
+);
 
-router.delete("/:postId", postController.delete_post);
+router.delete(
+  "/:postId",
+  passport.authenticate("jwt", { session: false }),
+  postController.delete_post
+);
 
 router.get("/:postId/comments", commentController.comment_list);
 
@@ -25,8 +33,16 @@ router.get("/:postId/comments/:commentId", commentController.comment_detail);
 
 router.post("/:postId/comments", commentController.create_comment);
 
-router.put("/:postId/comments/:commentId", commentController.update_comment);
+router.put(
+  "/:postId/comments/:commentId",
+  passport.authenticate("jwt", { session: false }),
+  commentController.update_comment
+);
 
-router.delete("/:postId/comments/:commentId", commentController.delete_comment);
+router.delete(
+  "/:postId/comments/:commentId",
+  passport.authenticate("jwt", { session: false }),
+  commentController.delete_comment
+);
 
 export default router;
