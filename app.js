@@ -6,6 +6,7 @@ import "dotenv/config";
 import cors from "cors";
 import mongoose from "mongoose";
 
+import "./passport";
 import apiRouter from "./routes/api";
 
 // setup mongoDB connection

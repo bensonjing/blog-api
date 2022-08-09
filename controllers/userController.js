@@ -1,21 +1,22 @@
 import { body, validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
+import passport from "passport";
+import jwt from "jsonwebtoken";
 
 import User from "../models/user";
 
 export const signup = [
   body("username")
     .trim()
-    .custom((value) => {
-      User.findOne({ username: value }, (err, user) => {
-        if (err) {
-          throw new Error(err);
-        }
+    .custom(async (value) => {
+      try {
+        const user = await User.findOne({ username: value });
         if (user) {
-          throw new Error("Username already in use");
+          throw new Error("Sign up failed: Username already exists!");
         }
-      });
-      return true;
+      } catch (err) {
+        throw new Error(err);
+      }
     }),
   body("password")
     .isLength({ min: 6 })
@@ -27,7 +28,6 @@ export const signup = [
     return true;
   }),
   (req, res, next) => {
-    console.log(req.body);
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -59,3 +59,25 @@ export const signup = [
     });
   },
 ];
+
+export function login(req, res, next) {
+  passport.authenticate("login", { session: false }, (err, user, info) => {
+    if (err || !user) {
+      return res.status(400).json({
+        message: info.message || "An error occurred",
+        user: user,
+      });
+    }
+
+    req.login(user, { session: false }, (err) => {
+      if (err) {
+        res.send(err);
+      }
+
+      console.log(user);
+
+      const token = jwt.sign({ user }, "secrete_key");
+      res.json({ token });
+    });
+  })(req, res, next);
+}

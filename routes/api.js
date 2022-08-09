@@ -6,7 +6,7 @@ import * as userController from "../controllers/userController";
 
 router.post("/signup", userController.signup);
 
-router.post("/login", (req, res) => res.send("NOT IMPLEMENTED: login"));
+router.post("/login", userController.login);
 
 router.get("/logout", (req, res) => res.send("NOT IMPLEMENTED: logout"));
 
