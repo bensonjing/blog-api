@@ -2,6 +2,7 @@ import { body, validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
 import passport from "passport";
 import jwt from "jsonwebtoken";
+import "dotenv/config";
 
 import User from "../models/user";
 
@@ -74,7 +75,7 @@ export function login(req, res, next) {
         res.send(err);
       }
 
-      const token = jwt.sign({ user }, "secrete_key");
+      const token = jwt.sign({ user }, process.env.SECRETE_KEY);
       res.json({ token });
     });
   })(req, res, next);

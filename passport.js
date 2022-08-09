@@ -1,6 +1,11 @@
 import passport from "passport";
 import LocalStrategy from "passport-local";
+import passportJWT from "passport-jwt";
 import bcrypt from "bcryptjs";
+import "dotenv/config";
+
+const JWTStrategy = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJwt;
 
 import User from "./models/user";
 
@@ -23,4 +28,24 @@ passport.use(
       });
     });
   })
+);
+
+passport.use(
+  new JWTStrategy(
+    {
+      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+      secretOrKey: process.env.SECRETE_KEY,
+    },
+    (jwtPayload, done) => {
+      User.findById(jwtPayload.user._id, (err, user) => {
+        if (err) {
+          return done(err);
+        }
+        if (!user) {
+          return done(null, false, "Incorrect token");
+        }
+        return done(null, user);
+      });
+    }
+  )
 );

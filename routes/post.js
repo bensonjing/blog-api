@@ -1,21 +1,22 @@
 import express from "express";
+import passport from "passport";
 const router = express.Router();
 
-router.get("/", (req, res) => res.send("NOT IMPLEMENTED: List of posts"));
+import * as postController from "../controllers/postController";
 
-router.get("/:postId", (req, res) =>
-  res.send("NOT IMPLEMENTED: post detail: " + req.params.postId)
+router.get("/", postController.post_list);
+
+router.get("/:postId", postController.post_detail);
+
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  postController.create_post
 );
 
-router.post("/", (req, res) => res.send("NOT IMPLEMENTED: create post"));
+router.put("/:postId", postController.update_post);
 
-router.put("/:postId", (req, res) =>
-  res.send("NOT IMPLEMENTED: update post: " + req.params.postId)
-);
-
-router.delete("/:postId", (req, res) => {
-  res.send("NOT IMPLEMENTED: delete post: " + req.params.postId);
-});
+router.delete("/:postId", postController.delete_post);
 
 router.get("/:postId/comments", (req, res) =>
   res.send("NOT IMPLEMENTED: list of comments")
