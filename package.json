@@ -2,7 +2,7 @@
   "name": "blog-api",
   "version": "0.0.0",
   "private": true,
-  "engine" : {
+  "engine": {
     "node": "16.11.0"
   },
   "scripts": {
@@ -28,6 +28,7 @@
   "devDependencies": {
     "@babel/core": "^7.18.10",
     "@babel/node": "^7.18.10",
-    "@babel/preset-env": "^7.18.10"
+    "@babel/preset-env": "^7.18.10",
+    "nodemon": "^2.0.19"
   }
 }
