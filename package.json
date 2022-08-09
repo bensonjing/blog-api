@@ -23,12 +23,12 @@
     "morgan": "~1.9.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
-  },
-  "devDependencies": {
+    "passport-local": "^1.0.0", 
     "@babel/core": "^7.18.10",
     "@babel/node": "^7.18.10",
-    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-env": "^7.18.10"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.19"
   }
 }
