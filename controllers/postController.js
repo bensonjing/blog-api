@@ -13,7 +13,7 @@ export function post_list(req, res, next) {
 
 export function post_detail(req, res, next) {
   Post.findById(req.params.postId)
-    .populate("author")
+    .populate("author", "-password")
     .exec((err, result) => {
       if (err) {
         return next(err);
