@@ -12,12 +12,14 @@ export function post_list(req, res, next) {
 }
 
 export function post_detail(req, res, next) {
-  Post.findById(req.params.postId).exec((err, result) => {
-    if (err) {
-      return next(err);
-    }
-    res.json(result);
-  });
+  Post.findById(req.params.postId)
+    .populate("author")
+    .exec((err, result) => {
+      if (err) {
+        return next(err);
+      }
+      res.json(result);
+    });
 }
 
 export function create_post(req, res, next) {
