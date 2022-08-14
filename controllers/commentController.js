@@ -1,9 +1,8 @@
-import Post from "../models/post";
 import Comment from "../models/comment";
 
 export function comment_list(req, res, next) {
   Comment.find({ post: req.params.postId })
-    .sort({ timestamp: -1 })
+    .sort({ createdAt: -1 })
     .exec((err, result) => {
       if (err) {
         return next(err);

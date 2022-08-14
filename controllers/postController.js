@@ -2,7 +2,7 @@ import Post from "../models/post";
 
 export function post_list(req, res, next) {
   Post.find()
-    .sort({ timestamp: -1 })
+    .sort({ createdAt: -1 })
     .exec((err, result) => {
       if (err) {
         return next(err);
